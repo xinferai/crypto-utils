@@ -1,0 +1,15 @@
+{
+  "name": "@xinferai/crypto-utils",
+  "version": "1.0.0",
+  "description": "string encryption and decryption functions run with both nodejs and browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sam Wen",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xinferai/crypto-utils.git"
+  }
+}

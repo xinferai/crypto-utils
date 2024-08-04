@@ -1,14 +1,3 @@
-# crypto-utils
-
-string encryption and decryption functions run with both nodejs and browser
-
-## how to install
-```
-npm install @xinferai/crypto-utils
-```
-
-### example
-```javascript
 'use strict';
 
 const { 
@@ -16,7 +5,7 @@ const {
     getPassphrase, 
     encryptString, 
     decryptString 
-} = require('@xinferai/crypto-utils');
+} = require('./index');
 
 (async () => {
     setPassphrase('x5fki+cuEvwXC6jZrMUX5TZT4K9fvFdTJHyr4dOOZiYE0wJ+EyL3F8k');
@@ -26,4 +15,3 @@ const {
     const decrypted = await decryptString(encrypted);
     console.log(decrypted);
 })();
-```
