@@ -4,14 +4,13 @@ const CryptoUtils = require('./base');
 
 let instance;
 
-if (typeof window !== 'undefined' && !!window.document) {
+if (typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle) {
     const BrowserUtils = require('./browser-utils');
     instance = new BrowserUtils();
-}   else {
+} else {
     const NodeUtils = require('./node-utils');
     instance = new NodeUtils();
 }
-
 
 function setPassphrase(s) {
     CryptoUtils.passphrase = s;

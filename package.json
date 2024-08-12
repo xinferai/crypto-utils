@@ -12,5 +12,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xinferai/crypto-utils.git"
+  },
+  "devDependencies": {
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^24.1.1"
   }
 }
