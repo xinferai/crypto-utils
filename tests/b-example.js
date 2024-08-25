@@ -1,10 +1,12 @@
-'use strict';
 
-const config = require('./config');
+let passphrase = typeof process !== 'undefined' && process.env?.CRYPTO_UTILS_PASSPHRASE ? 
+    process.env.CRYPTO_UTILS_PASSPHRASE : 'xZAfK8BTXPglW+2Hwv0F3upiIW1gHp761y0GFCQaS2qm';
 
-module.exports = {
-    encryptString,
-    decryptString
+let cryptoKey = null;
+
+let config = {
+    passphrase,
+    cryptoKey
 };
 
 function str2ab(str) {
@@ -66,3 +68,20 @@ async function decryptString(encryptedStr) {
 
     return ab2str(decryptedContent);
 }
+
+
+
+function setPassphrase(s) {
+    config.passphrase = s;
+}
+
+function getPassphrase() {
+    return config.passphrase;
+}
+
+setPassphrase('x5fki+cuEvwXC6jZrMUX5TZT4K9fvFdTJHyr4dOOZiYE0wJ+EyL3F8k');
+console.log(getPassphrase());
+const encrypted = await encryptString('Hello, World!');
+console.log(encrypted);
+const decrypted = await decryptString(encrypted);
+console.log(decrypted);   

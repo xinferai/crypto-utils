@@ -1,36 +1,26 @@
 'use strict';
 
-const CryptoUtils = require('./base');
+const config = require('./config');
 
-let instance;
+let utils;
 
 if (typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle) {
-    const BrowserUtils = require('./browser-utils');
-    instance = new BrowserUtils();
+    utils = require('./browser-utils');
 } else {
-    const NodeUtils = require('./node-utils');
-    instance = new NodeUtils();
+    utils = require('./node-utils');
 }
 
 function setPassphrase(s) {
-    CryptoUtils.passphrase = s;
+    config.passphrase = s;
 }
 
 function getPassphrase() {
-    return CryptoUtils.passphrase;
-}
-
-async function encryptString(str) {
-    return await instance.encryptString(str);
-}
-
-async function decryptString(encryptedStr) {
-    return await instance.decryptString(encryptedStr);
+    return config.passphrase;
 }
 
 module.exports = { 
     setPassphrase, 
     getPassphrase, 
-    encryptString, 
-    decryptString 
+    encryptString: utils.encryptString, 
+    decryptString: utils.decryptString 
 };
