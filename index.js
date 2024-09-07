@@ -1,26 +1,16 @@
 'use strict';
 
-const config = require('./config');
-
 let utils;
 
-if (typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle) {
+if (typeof window !== 'undefined' && typeof window.document !== 'undefined') {
     utils = require('./browser-utils');
 } else {
     utils = require('./node-utils');
 }
 
-function setPassphrase(s) {
-    config.passphrase = s;
-}
-
-function getPassphrase() {
-    return config.passphrase;
-}
-
 module.exports = { 
-    setPassphrase, 
-    getPassphrase, 
+    setPassphrase: utils.setPassphrase, 
+    getPassphrase: utils.getPassphrase, 
     encryptString: utils.encryptString, 
     decryptString: utils.decryptString 
 };

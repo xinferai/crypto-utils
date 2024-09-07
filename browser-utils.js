@@ -1,11 +1,20 @@
+// browser-utils.js
+
 'use strict';
 
-const config = require('./config');
+// default passphrase
+//
+let passphrase = 'default passphrase';
 
-module.exports = {
-    encryptString,
-    decryptString
-};
+let cryptoKey = null;
+
+function setPassphrase(s) {
+    passphrase = s;
+}
+
+function getPassphrase() {
+    return passphrase;
+}
 
 function str2ab(str) {
     const encoder = new TextEncoder();
@@ -18,19 +27,19 @@ function ab2str(buffer) {
 }
 
 async function generateKey() {
-    if (config.cryptoKey) {
-        return config.cryptoKey;
+    if (cryptoKey) {
+        return cryptoKey;
     }
-    const passphraseBytes = str2ab(config.passphrase);
+    const passphraseBytes = str2ab(passphrase);
     const hash = await window.crypto.subtle.digest('SHA-256', passphraseBytes);
-    config.cryptoKey = await window.crypto.subtle.importKey(
+    cryptoKey = await window.crypto.subtle.importKey(
         'raw',
         hash, // Use the hashed passphrase as the key
         { name: 'AES-GCM' },
         false,
         ['encrypt', 'decrypt']
     );
-    return config.cryptoKey;
+    return cryptoKey;
 }
 
 async function encryptString(str) {
@@ -63,6 +72,12 @@ async function decryptString(encryptedStr) {
         key,
         encryptedContent
     );
-
     return ab2str(decryptedContent);
 }
+
+module.exports = {
+    setPassphrase,
+    getPassphrase,
+    encryptString,
+    decryptString
+};

@@ -1,16 +1,23 @@
 {
   "name": "@xinferai/crypto-utils",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "string encryption and decryption functions run with both nodejs and browser",
-  "main": "index.js",
+  "main": "./dist/crypto-utils.node.js",
+  "browser": "./dist/crypto-utils.browser.js",
   "types": "index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js",
+    "test": "jest tests/*.test.js"
   },
   "author": "Sam Wen",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xinferai/crypto-utils.git"
+  },
+  "devDependencies": {
+    "puppeteer": "^23.3.0",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
   }
 }

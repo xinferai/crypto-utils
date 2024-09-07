@@ -1,17 +1,31 @@
+// node-utils.js
+
 'use strict';
 
 const { randomBytes, createCipheriv, createDecipheriv, createHash } = require('crypto');
 
-let passphrase = 'default passphrase';
-let cryptoKey = null;
+module.exports = {
+    setPassphrase,
+    getPassphrase,
+    encryptString,
+    decryptString,
+};
 
+// default passphrase
+//
+let passphrase = 'default passphrase';
+
+
+// if passphrase is set in environment variable, use it
+//
 if (process.env?.CRYPTO_UTILS_PASSPHRASE) {
     passphrase = process.env.CRYPTO_UTILS_PASSPHRASE;
 }
 
+let cryptoKey = null;
+
 function setPassphrase(s) {
     passphrase = s;
-    cryptoKey = null; // Reset the key when passphrase changes
 }
 
 function getPassphrase() {
@@ -55,9 +69,3 @@ async function decryptString(encryptedStr) {
     return decrypted.toString('utf8');
 }
 
-module.exports = {
-    setPassphrase,
-    getPassphrase,
-    encryptString,
-    decryptString,
-};
