@@ -1,7 +1,7 @@
 const path = require('path');
 
 const browserConfig = {
-  entry: './index.js',
+  entry: './browser-utils.js',
   output: {
     filename: 'crypto-utils.browser.js',
     path: path.resolve(__dirname, 'dist'),
@@ -19,7 +19,7 @@ const browserConfig = {
 };
 
 const nodeConfig = {
-  entry: './index.js',
+  entry: './node-utils.js',
   output: {
     filename: 'crypto-utils.node.js',
     path: path.resolve(__dirname, 'dist'),

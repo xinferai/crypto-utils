@@ -1,6 +1,6 @@
 {
   "name": "@xinferai/crypto-utils",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "string encryption and decryption functions run with both nodejs and browser",
   "main": "./dist/crypto-utils.node.js",
   "browser": "./dist/crypto-utils.browser.js",
