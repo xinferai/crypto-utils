@@ -16,6 +16,7 @@ const browserConfig = {
   },
   target: 'web', // specifies that the build is for browsers
   mode: 'production',
+  devtool: 'source-map',
 };
 
 const nodeConfig = {
@@ -27,6 +28,7 @@ const nodeConfig = {
   },
   target: 'node', // specifies that the build is for Node.js
   mode: 'production',
+  devtool: 'source-map',
 };
 
 module.exports = [browserConfig, nodeConfig];

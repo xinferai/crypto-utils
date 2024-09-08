@@ -5,8 +5,10 @@ const { randomBytes, createCipheriv, createDecipheriv, createHash } = require('c
 let passphrase = 'default passphrase';
 let cryptoKey = null;
 
-if (process.env?.CRYPTO_UTILS_PASSPHRASE) {
-    passphrase = process.env.CRYPTO_UTILS_PASSPHRASE;
+if (process.env?.XINFERAI_PASSPHRASE) {
+    passphrase = process.env.XINFERAI_PASSPHRASE;
+} else if (process.env?.NEXT_PUBLIC_XINFERAI_PASSPHRASE) {
+    passphrase = process.env.NEXT_PUBLIC_XINFERAI_PASSPHRASE;
 }
 
 function setPassphrase(s) {
