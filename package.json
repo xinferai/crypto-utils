@@ -1,10 +1,14 @@
 {
   "name": "@xinferai/crypto-utils",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "string encryption and decryption functions run with both nodejs and browser",
   "main": "./dist/crypto-utils.node.js",
   "browser": "./dist/crypto-utils.browser.js",
   "types": "index.d.ts",
+  "files": [
+    "index.d.ts",
+    "dist/**/*"
+  ],
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "test": "jest tests/*.test.js"
