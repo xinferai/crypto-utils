@@ -1,6 +1,6 @@
 'use strict';
 
-const { setPassphrase, getPassphrase, encryptString, decryptString } = require('..');
+const { setPassphrase, getPassphrase, encryptString, decryptString } = require('../node.js');
 
 // Mock the randomBytes to ensure consistent IV in tests
 jest.mock('crypto', () => {

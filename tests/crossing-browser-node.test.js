@@ -2,7 +2,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
-const { encryptString, decryptString, setPassphrase } = require('../'); // Node.js decryption utility
+const { encryptString, decryptString, setPassphrase } = require('../node.js'); // Node.js decryption utility
 
 describe('Verify crossing between nodejs and browser en/de-cryption', () => {
 
