@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
-describe('browser-utils', () => {
+describe('browser', () => {
 
   let browser;
   let page;
@@ -19,8 +19,8 @@ describe('browser-utils', () => {
     page = await browser.newPage();
     await page.goto('https://www.google.com');
 
-    // Inject browser-utils.js as a global variable in the browser context
-    let browserUtilsScript = fs.readFileSync(path.join(__dirname, '../browser-utils.js'), 'utf8');
+    // Inject browser.js as a global variable in the browser context
+    let browserUtilsScript = fs.readFileSync(path.join(__dirname, '../browser.js'), 'utf8');
     browserUtilsScript = browserUtilsScript.replace('module.exports', 'window.browserUtils');
 
     await page.evaluate(browserUtilsScript);

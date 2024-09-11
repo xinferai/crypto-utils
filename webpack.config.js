@@ -1,34 +1,29 @@
 const path = require('path');
 
-const browserConfig = {
-  entry: './browser-utils.js',
+module.exports = {
+  entry: './browser.js',  // Entry point for browser build
   output: {
-    filename: 'crypto-utils.browser.js',
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'umd', // for compatibility with Node.js and browsers
-    globalObject: 'this', // ensures correct output for both environments
+    filename: 'browser.js',  // Output file
     library: '@xinferai/crypto-utils',
+    libraryTarget: 'umd',  // UMD format to work in various environments
+    globalObject: 'this'
   },
-  resolve: {
-    fallback: {
-      crypto: false, // exclude 'crypto' for browser builds
-    },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',  // Optional: Use Babel if you need to transpile ES6+
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      }
+    ]
   },
-  target: 'web', // specifies that the build is for browsers
-  mode: 'production',
-  devtool: 'source-map',
+  target: ['web', 'es5'],  // Targeting web and ES5 for browser compatibility
+  mode: 'production',  // Change to 'development' for non-minified output
+  devtool: 'source-map'  // Enable source map generation
 };
-
-const nodeConfig = {
-  entry: './node-utils.js',
-  output: {
-    filename: 'crypto-utils.node.js',
-    path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'commonjs2',
-  },
-  target: 'node', // specifies that the build is for Node.js
-  mode: 'production',
-  devtool: 'source-map',
-};
-
-module.exports = [browserConfig, nodeConfig];
