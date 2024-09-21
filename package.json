@@ -1,17 +1,31 @@
 {
   "name": "@xinferai/crypto-utils",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "string encryption and decryption functions run with both nodejs and browser",
-  "main": "index.js",
-  "browser": "browser.js",
-  "types": "index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "import": "./dist/browser.mjs",
+      "require": "./dist/browser.js"
+    }
+  },
+  "browser": {
+    "./dist/index.js": "./dist/browser.js",
+    "./dist/index.mjs": "./dist/browser.mjs"
+  },
   "files": [
-    "index.js",
-    "index.d.ts",
-    "node.js",
-    "browser.js"
+    "dist"
   ],
   "scripts": {
+    "build": "tsup",
     "test": "jest tests/*.test.js"
   },
   "author": "Sam Wen",
@@ -21,6 +35,8 @@
     "url": "git+https://github.com/xinferai/crypto-utils.git"
   },
   "devDependencies": {
-    "puppeteer": "^23.3.0"
+    "puppeteer": "^23.3.0",
+    "tsup": "^7.2.0",
+    "typescript": "^5.0.0"
   }
 }

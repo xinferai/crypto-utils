@@ -1,9 +1,9 @@
-'use strict';
+// src/node.ts
 
-const { randomBytes, createCipheriv, createDecipheriv, createHash } = require('crypto');
+import { randomBytes, createCipheriv, createDecipheriv, createHash } from 'crypto';
 
 let passphrase = 'default passphrase';
-let cryptoKey = null;
+let cryptoKey: Buffer | null = null;
 
 if (process.env?.XINFERAI_PASSPHRASE) {
     passphrase = process.env.XINFERAI_PASSPHRASE;
@@ -11,16 +11,16 @@ if (process.env?.XINFERAI_PASSPHRASE) {
     passphrase = process.env.NEXT_PUBLIC_XINFERAI_PASSPHRASE;
 }
 
-function setPassphrase(s) {
+export function setPassphrase(s: string): void {
     passphrase = s;
     cryptoKey = null; // Reset the key when passphrase changes
 }
 
-function getPassphrase() {
+export function getPassphrase(): string {
     return passphrase;
 }
 
-async function generateKey() {
+async function generateKey(): Promise<Buffer> {
     if (cryptoKey) {
         return cryptoKey;
     }
@@ -29,7 +29,7 @@ async function generateKey() {
     return hash;
 }
 
-async function encryptString(str) {
+export async function encryptString(str: string): Promise<string> {
     const iv = randomBytes(12);
     const key = await generateKey();
 
@@ -42,7 +42,7 @@ async function encryptString(str) {
     return combined.toString('base64');
 }
 
-async function decryptString(encryptedStr) {
+export async function decryptString(encryptedStr: string): Promise<string> {
     const encryptedBytes = Buffer.from(encryptedStr, 'base64');
     const iv = encryptedBytes.subarray(0, 12);
     const authTag = encryptedBytes.subarray(encryptedBytes.length - 16);
@@ -56,10 +56,3 @@ async function decryptString(encryptedStr) {
 
     return decrypted.toString('utf8');
 }
-
-module.exports = {
-    setPassphrase,
-    getPassphrase,
-    encryptString,
-    decryptString,
-};
