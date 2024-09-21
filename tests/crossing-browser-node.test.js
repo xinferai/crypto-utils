@@ -2,7 +2,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
-const { encryptString, decryptString, setPassphrase } = require('../node.js'); // Node.js decryption utility
+const { encryptString, decryptString, setPassphrase } = require('../dist/node.js'); // Node.js decryption utility
 
 describe('Verify crossing between nodejs and browser en/de-cryption', () => {
 
@@ -22,7 +22,7 @@ describe('Verify crossing between nodejs and browser en/de-cryption', () => {
     await page.goto('https://www.google.com');
 
     // Inject browser.js as a global variable in the browser context
-    let browserUtilsScript = fs.readFileSync(path.join(__dirname, '../browser.js'), 'utf8');
+    let browserUtilsScript = fs.readFileSync(path.join(__dirname, '../dist/browser.js'), 'utf8');
     browserUtilsScript = browserUtilsScript.replace('module.exports', 'window.browserUtils');
 
     await page.evaluate(browserUtilsScript);
