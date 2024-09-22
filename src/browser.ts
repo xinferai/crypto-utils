@@ -1,13 +1,27 @@
 // src/browser.ts
 
+export {
+    setPassphrase,
+    getPassphrase,
+    encryptString,
+    decryptString
+};
+
+export default {
+    setPassphrase,
+    getPassphrase,
+    encryptString,
+    decryptString
+};
+
 let passphrase = 'default passphrase';
 let cryptoKey: CryptoKey | null = null;
 
-export function setPassphrase(s: string): void {
+function setPassphrase(s: string): void {
     passphrase = s;
 }
 
-export function getPassphrase(): string {
+function getPassphrase(): string {
     return passphrase;
 }
 
@@ -36,8 +50,7 @@ async function generateKey(): Promise<CryptoKey> {
     );
     return cryptoKey;
 }
-
-export async function encryptString(str: string): Promise<string> {
+async function encryptString(str: string): Promise<string> {
     const iv = window.crypto.getRandomValues(new Uint8Array(12));
     const key = await generateKey();
     const encryptedContent = await window.crypto.subtle.encrypt(
@@ -54,7 +67,7 @@ export async function encryptString(str: string): Promise<string> {
     return btoa(String.fromCharCode.apply(null, Array.from(combined)));
 }
 
-export async function decryptString(encryptedStr: string): Promise<string> {
+async function decryptString(encryptedStr: string): Promise<string> {
     const encryptedBytes = Uint8Array.from(atob(encryptedStr), c => c.charCodeAt(0));
     const iv = encryptedBytes.subarray(0, 12);
     const encryptedContent = encryptedBytes.subarray(12);

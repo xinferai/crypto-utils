@@ -2,6 +2,20 @@
 
 import { randomBytes, createCipheriv, createDecipheriv, createHash } from 'crypto';
 
+export {
+    setPassphrase,
+    getPassphrase,
+    encryptString,
+    decryptString
+};
+
+export default {
+    setPassphrase,
+    getPassphrase,
+    encryptString,
+    decryptString
+};
+
 let passphrase = 'default passphrase';
 let cryptoKey: Buffer | null = null;
 
@@ -11,12 +25,12 @@ if (process.env?.XINFERAI_PASSPHRASE) {
     passphrase = process.env.NEXT_PUBLIC_XINFERAI_PASSPHRASE;
 }
 
-export function setPassphrase(s: string): void {
+function setPassphrase(s: string): void {
     passphrase = s;
     cryptoKey = null; // Reset the key when passphrase changes
 }
 
-export function getPassphrase(): string {
+function getPassphrase(): string {
     return passphrase;
 }
 
@@ -29,7 +43,7 @@ async function generateKey(): Promise<Buffer> {
     return hash;
 }
 
-export async function encryptString(str: string): Promise<string> {
+async function encryptString(str: string): Promise<string> {
     const iv = randomBytes(12);
     const key = await generateKey();
 
@@ -42,7 +56,7 @@ export async function encryptString(str: string): Promise<string> {
     return combined.toString('base64');
 }
 
-export async function decryptString(encryptedStr: string): Promise<string> {
+async function decryptString(encryptedStr: string): Promise<string> {
     const encryptedBytes = Buffer.from(encryptedStr, 'base64');
     const iv = encryptedBytes.subarray(0, 12);
     const authTag = encryptedBytes.subarray(encryptedBytes.length - 16);
